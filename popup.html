@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  min-width:527px;
+  overflow-x:hidden;
+  font-family: verdana,sans-serif;
+  font-size: 80%;
+  margin: 0;
+  padding: 0 20px;
+}
+
+#toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1px solid gray;
+  border-width: 0 0px 1px;
+  height: 50px;
+  background: #fff;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+#toolbar input {
+  padding: 10px;
+}
+
+img {
+  margin:5px;
+  border:2px solid black;
+  vertical-align:middle;
+  width:75px;
+  height:75px;
+}
+
+h1 {
+  margin-top: 51px;
+  padding-left: 1.2em;
+}
+
+h2 {
+  background: #9999FF;
+  font-size: 13px;
+  line-height: 21px;
+  padding-left: 1.2em;
+}
+
+ul {
+  list-style-type: none;
+  list-style-position: inside;
+  margin-right: 1.2em;
+  padding-left: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Favorite Forums</h1>
+<form id="map">
+<ul>
+<script>
+var s = '',
+    bgPage = chrome.extension.getBackgroundPage(),
+    favorites = bgPage.getFavorites(),
+    map = bgPage.pageData,
+    n;
+
+
+function refresh() {
+    chrome.tabs.executeScript(null,
+      {code:"window.location.reload();"});
+}
+
+function clearFavorites() {
+    bgPage.clearStrg();
+    refresh();
+    self.close();
+    
+}
+
+function saveFavorites() {
+    var i,
+        n,
+        ops = document.getElementsByTagName('input'),
+        favs = [];
+    
+    for (i = 0, n = ops.length; i < n; i++) {
+        if (ops[i].type === 'checkbox' && ops[i].checked) {
+            favs.push(ops[i].value);
+        }
+    }
+    bgPage.setItem('favorites', JSON.stringify(favs));
+    refresh();
+    self.close();
+}
+
+// TODO: Make the favorites orderable and add drag and drop ordering
+for (var n in map) {
+    s += "<li>";
+    s += "<h2>" + map[n].text + "</h2>";
+    if (map[n].forums.length > 0) {
+        s += "<ul>";
+        for (var f in map[n].forums) {
+            checked = false;
+            if (favorites) {
+                for (i = 0; i < favorites.length; i++) {
+                    if (map[n].forums[f].url === favorites[i]) {
+                        checked = true;
+                        break;
+                    }
+                }
+            }
+            s += "<li>";
+            s += "<input type='checkbox' value='" + map[n].forums[f].url + "' " + (checked? "checked='checked'" : "") + ">" + map[n].forums[f].text;
+            s += "</li>";
+        }
+        s += "</ul>";
+    }
+    s += "</li>";
+}
+
+document.write(s);
+
+</script>
+</ul>
+<div id="toolbar">
+    <input type="button" name="saveFav" value="Save Favorites" onclick="saveFavorites();">
+    <input type="button" name="clearFav" value="Clear Favorites" onclick="clearFavorites();">
+</div>
+</form>
+</body>
+</html>
