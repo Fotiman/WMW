@@ -8,6 +8,7 @@ Revision History:
 ===================
 1.1.0 (2015-04-27)
 * Updated to support the recent WebmasterWorld updates, including https
+* Updated to Chrome manifest 2.0.0
 
 
 1.0.0 (2011-01-14)

@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<script>
 // When true, this will output messages to the console (for debugging)
 var logging = true;
 
@@ -94,6 +90,3 @@ function onRequest(request, sender, sendResponse) {
 
 // Register the listener 
 chrome.extension.onRequest.addListener(onRequest);
-</script>
-</head>
-</html>
