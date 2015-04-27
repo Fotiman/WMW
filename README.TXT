@@ -1,7 +1,7 @@
 
     WebmasterWorld Favorite Forums
     Author: Peter Foti (fotiman@gmail.com)
-    Version: 1.1.0
+    Version: 1.2.0
 
 
 Revision History:
