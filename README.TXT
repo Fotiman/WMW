@@ -6,9 +6,14 @@
 
 Revision History:
 ===================
-1.1.0 (2015-04-27)
+1.2.0 (2015-04-27)
 * Updated to support the recent WebmasterWorld updates, including https
-* Updated to Chrome manifest 2.0.0
+
+
+1.1.0 (2013-07-17)
+* Version 1.1.0 contains minor changes to support version 2 of the the Google
+  Extension Manifest file. This change required some minor refactoring, but 
+  there should be no changes in functionality from version 1.0.0.
 
 
 1.0.0 (2011-01-14)
