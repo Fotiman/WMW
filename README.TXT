@@ -1,11 +1,15 @@
 
     WebmasterWorld Favorite Forums
     Author: Peter Foti (fotiman@gmail.com)
-    Version: 1.0.0
+    Version: 1.1.0
 
 
 Revision History:
 ===================
+1.1.0 (2015-04-27)
+* Updated to support the recent WebmasterWorld updates, including https
+
+
 1.0.0 (2011-01-14)
  * Initial release
  * Favorites section shows up on page only after Favorites have been saved
