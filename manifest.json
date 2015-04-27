@@ -1,6 +1,6 @@
 {
   "name": "WebmasterWorld Favorite Forums",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Copy links to your favorite WebmasterWorld forums to a section at the top of the Forum Index page.",
   "icons": {
     "16": "favicon.ico",
@@ -10,7 +10,7 @@
   "background_page": "background.html",
   "content_scripts": [
     {
-      "matches": ["http://*.webmasterworld.com/home.htm*","http://*.webmasterworld.com/indexv5.cgi*"],
+      "matches": ["https://*.webmasterworld.com/home.htm*","https://*.webmasterworld.com/indexv5.cgi*"],
       "run_at": "document_end",
       "js": ["jquery.js", "contentscript.js"]
     }
@@ -22,6 +22,6 @@
   },
   "permissions": [
     "tabs",
-    "http://*.webmasterworld.com/*"
+    "https://*.webmasterworld.com/*"
   ]
 }
