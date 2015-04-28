@@ -1,6 +1,6 @@
 (function () {
 var map = {},       // map of visible categories/forums
-    messageBoardTable = $("font:contains('WebmasterWorld Supporters')").parents('table').get(0);
+    messageBoardTable = $("table thead.section").parents('table').get(0);
 
 
 /**
@@ -9,20 +9,27 @@ var map = {},       // map of visible categories/forums
  * @return {$(HTMLElement)} The newly created row
  */
 function createfavoritesHeader() {
-    $($(messageBoardTable).find('tr').get(0)).after(
-        '<tr bgcolor="#9999FF" id="favoritesHeader">' +
+    $($(messageBoardTable).find('.section').get(0)).after(
+        '<thead class="section">' +
+        '<tr id="favoritesHeader">' +
         '  <td colspan="2">' +
-        '    <b><font size="2" face="verdana" color="#000000">Favorites</font></b>' +
+        '    <strong>Favorites</strong>' +
         '  </td>' +
-        '  <td align="right" colspan="2">&nbsp;</td>' +
-        '  <td colspan="1" align="right">' +
-        '    <font size="1" color="#000000">Category Administrator <b>YOU</b></font>' +
+        '  <td colspan="2">&nbsp;</td>' +
+        '  <td>' +
+        '    Category Administrator <strong>YOU</strong>' +
         '  </td>' +
-        '</tr>'
+        '</tr>' +
+        '</thead>'
     );
     return $('#favoritesHeader');
 }
 
+function createfavoritesContent() {
+    var tbody = $('<tbody />');
+    $('#favoritesHeader').parent('thead').after(tbody);
+    return tbody;
+}
 
 /**
  * Gets a map of the categories and forums on the current page
@@ -49,14 +56,15 @@ function getPageMap() {
     // for each row in the table, determine if its a category or forum and add
     // it to the map appropriately
     $(messageBoardTable).find('tr').each(function (index, element) {
-        if (index === 0) { // skip the first row, doesn't contain a category
-            return;
-        }
+        //if (index === 0) { // skip the first row, doesn't contain a category
+        //    return;
+        //}
         
         // find the first <a> element, which is a link to a category or forum
         el = $(element).find('a[href]').get(0);
         text = $(el).text();
-        if ($(element).attr('bgcolor') === '#9999FF') {
+        if ($(element).parents(".section").length > 0) {
+        //if ($(element).attr('bgcolor') === '#9999FF') {
             // this is a category
             currentCat = $(el).attr('href');
             if (currentCat != "undefined" && text != "") {
@@ -89,6 +97,7 @@ chrome.extension.sendRequest(map, function(response) {
     var favorites,       // the array of selectors that identify our favorites
         favoritesHeader, // the header inserted to display before our favorites
         i,               // index in loop
+        $tbody,
         tr;              // will hold a clone of a <tr> to copy to favorites
     
     // The array of favorites is returned from the background page
@@ -97,11 +106,12 @@ chrome.extension.sendRequest(map, function(response) {
     if (favorites && favorites.length > 0) {
         // Create a favorites section for our favorites
         favoritesHeader = createfavoritesHeader();
+        $tbody = createfavoritesContent();
     
         // Copy each of our favorite rows to the favorites section
         for (i = favorites.length; i > 0; i--) {
             tr = $($('a[href="' + favorites[i-1] + '"]').parents('tr').get(0)).clone();
-            favoritesHeader.after(tr);
+            $tbody.append(tr);
         }
     }
 });

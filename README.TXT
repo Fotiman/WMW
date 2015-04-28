@@ -1,11 +1,19 @@
 
     WebmasterWorld Favorite Forums
     Author: Peter Foti (fotiman@gmail.com)
-    Version: 1.2.0
+    Version: 1.2.2
 
 
 Revision History:
 ===================
+1.2.2 (2015-04-27)
+* Update to support new forum markup
+
+
+1.2.1 (2015-04-27)
+* Update to support change in forum markup
+
+
 1.2.0 (2015-04-27)
 * Updated to support the recent WebmasterWorld updates, including https
 
